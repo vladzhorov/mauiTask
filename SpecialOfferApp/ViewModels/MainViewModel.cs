@@ -10,11 +10,6 @@ namespace SpecialOfferApp.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
     private readonly IOfferDialogService _offerDialogService;
-    private OfferType _offerType;
-    private string _headerText = string.Empty;
-    private OfferTheme _selectedTheme;
-    private bool _showMedia;
-    private string _resultText = string.Empty;
 
     public MainViewModel(IOfferDialogService offerDialogService)
     {
@@ -24,7 +19,7 @@ public partial class MainViewModel : ObservableObject
         SelectedTheme = OfferTheme.Light;
 
         HeaderText = OfferConstants.DefaultHeaderText;
-        OfferType = OfferType.PercentageDiscount;
+        SelectedOfferType = OfferType.PercentageDiscount;
         ShowMedia = true;
 
         ResultText = OfferConstants.ResultWaiting;
@@ -32,60 +27,40 @@ public partial class MainViewModel : ObservableObject
 
     public ObservableCollection<OfferTheme> Themes { get; }
 
-    public OfferType OfferType
-    {
-        get => _offerType;
-        set
-        {
-            if (!SetProperty(ref _offerType, value))
-                return;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsPercentageOffer))]
+    [NotifyPropertyChangedFor(nameof(IsFixedAmountOffer))]
+    private OfferType _selectedOfferType;
 
-            OnPropertyChanged(nameof(IsPercentageOffer));
-            OnPropertyChanged(nameof(IsFixedAmountOffer));
-        }
-    }
+    [ObservableProperty]
+    private string _headerText = string.Empty;
 
-    public string HeaderText
-    {
-        get => _headerText;
-        set => SetProperty(ref _headerText, value);
-    }
+    [ObservableProperty]
+    private OfferTheme _selectedTheme;
 
-    public OfferTheme SelectedTheme
-    {
-        get => _selectedTheme;
-        set => SetProperty(ref _selectedTheme, value);
-    }
+    [ObservableProperty]
+    private bool _showMedia;
 
-    public bool ShowMedia
-    {
-        get => _showMedia;
-        set => SetProperty(ref _showMedia, value);
-    }
-
-    public string ResultText
-    {
-        get => _resultText;
-        set => SetProperty(ref _resultText, value);
-    }
+    [ObservableProperty]
+    private string _resultText = string.Empty;
 
     public bool IsPercentageOffer
     {
-        get => OfferType == OfferType.PercentageDiscount;
+        get => SelectedOfferType == OfferType.PercentageDiscount;
         set
         {
             if (value)
-                OfferType = OfferType.PercentageDiscount;
+                SelectedOfferType = OfferType.PercentageDiscount;
         }
     }
 
     public bool IsFixedAmountOffer
     {
-        get => OfferType == OfferType.FixedAmount;
+        get => SelectedOfferType == OfferType.FixedAmount;
         set
         {
             if (value)
-                OfferType = OfferType.FixedAmount;
+                SelectedOfferType = OfferType.FixedAmount;
         }
     }
 
@@ -94,7 +69,7 @@ public partial class MainViewModel : ObservableObject
     {
         var content = new OfferContentConfiguration
         {
-            Type = OfferType,
+            Type = SelectedOfferType,
             HeaderText = HeaderText
         };
         var display = new OfferDisplayConfiguration
