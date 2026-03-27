@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SpecialOfferApp.Popups.OfferPopupPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#80000000"
+    Shell.NavBarIsVisible="False">
+
+    <Grid Padding="20">
+        <Border
+            x:Name="PopupBorder"
+            Padding="20"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 16"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            MaximumWidthRequest="380">
+            <VerticalStackLayout Spacing="12">
+                <Label
+                    Text="{Binding HeaderText}"
+                    FontSize="22"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="🎁"
+                    IsVisible="{Binding ShowMedia}"
+                    FontSize="38"
+                    HorizontalOptions="Center"
+                    />
+
+                <Label
+                    Text="{Binding ValueText}"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="{Binding DescriptionText}"
+                    FontSize="14"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center" />
+
+                <Button
+                    Text="Claim Offer"
+                    Command="{Binding ClaimCommand}" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
