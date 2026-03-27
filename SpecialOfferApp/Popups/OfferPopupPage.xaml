@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SpecialOfferApp.Popups.OfferPopupPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:SpecialOfferApp.Models"
+    BackgroundColor="#80000000"
+    Shell.NavBarIsVisible="False">
+
+    <Grid Padding="20">
+        <Border
+            x:Name="PopupBorder"
+            Padding="20"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 16"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            MaximumWidthRequest="380"
+            BackgroundColor="{DynamicResource OfferPopupBackgroundLight}">
+            <VerticalStackLayout Spacing="12">
+                <Label
+                    x:Name="HeaderLabel"
+                    Text="{Binding HeaderText}"
+                    FontSize="22"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    TextColor="{DynamicResource OfferPopupTextLight}" />
+
+                <Label
+                    x:Name="GiftLabel"
+                    Text="🎁"
+                    IsVisible="{Binding ShowMedia}"
+                    FontSize="38"
+                    HorizontalOptions="Center"
+                    TextColor="{DynamicResource OfferPopupTextLight}" />
+
+                <Label
+                    x:Name="ValueLabel"
+                    Text="{Binding ValueText}"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    TextColor="{DynamicResource OfferPopupTextLight}" />
+
+                <Label
+                    x:Name="DescriptionLabel"
+                    Text="{Binding DescriptionText}"
+                    FontSize="14"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    TextColor="{DynamicResource OfferPopupTextLight}" />
+
+                <Button
+                    x:Name="ClaimButton"
+                    Text="Claim Offer"
+                    Command="{Binding ClaimCommand}"
+                    BackgroundColor="{DynamicResource OfferPopupButtonBackgroundLight}"
+                    TextColor="{DynamicResource OfferPopupButtonTextLight}" />
+            </VerticalStackLayout>
+
+            <Border.Triggers>
+                <DataTrigger
+                    TargetType="Border"
+                    Binding="{Binding Theme}"
+                    Value="{x:Static models:OfferTheme.Dark}">
+                    <Setter Property="BackgroundColor" Value="{DynamicResource OfferPopupBackgroundDark}" />
+                    <Setter TargetName="HeaderLabel" Property="Label.TextColor" Value="{DynamicResource OfferPopupTextDark}" />
+                    <Setter TargetName="GiftLabel" Property="Label.TextColor" Value="{DynamicResource OfferPopupTextDark}" />
+                    <Setter TargetName="ValueLabel" Property="Label.TextColor" Value="{DynamicResource OfferPopupTextDark}" />
+                    <Setter TargetName="DescriptionLabel" Property="Label.TextColor" Value="{DynamicResource OfferPopupTextDark}" />
+                    <Setter TargetName="ClaimButton" Property="Button.BackgroundColor" Value="{DynamicResource OfferPopupButtonBackgroundDark}" />
+                    <Setter TargetName="ClaimButton" Property="Button.TextColor" Value="{DynamicResource OfferPopupButtonTextDark}" />
+                </DataTrigger>
+            </Border.Triggers>
+        </Border>
+    </Grid>
+</ContentPage>
+

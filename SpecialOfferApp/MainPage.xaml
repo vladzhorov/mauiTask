@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpecialOfferApp.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="16">
+            <Label
+                Text="Special Offer Config"
+                FontSize="24"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="Offer Type"
+                FontAttributes="Bold" />
+            <HorizontalStackLayout Spacing="16">
+                <RadioButton
+                    GroupName="OfferTypeGroup"
+                    Content="Percentage Discount"
+                    IsChecked="{Binding IsPercentageOffer, Mode=TwoWay}" />
+                <RadioButton
+                    GroupName="OfferTypeGroup"
+                    Content="Fixed Amount"
+                    IsChecked="{Binding IsFixedAmountOffer, Mode=TwoWay}" />
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Header Text"
+                FontAttributes="Bold" />
+            <Entry
+                Placeholder="Enter custom promotion title"
+                Text="{Binding HeaderText, Mode=TwoWay}" />
+
+            <Label
+                Text="Visual Theme"
+                FontAttributes="Bold" />
+            <Picker
+                Title="Select theme">
+                <Picker.ItemsSource>
+                    <Binding Path="Themes" />
+                </Picker.ItemsSource>
+                <Picker.SelectedItem>
+                    <Binding Path="SelectedTheme" Mode="TwoWay" />
+                </Picker.SelectedItem>
+            </Picker>
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Label
+                    Text="Show gift media"
+                    VerticalOptions="Center" />
+                <Switch
+                    Grid.Column="1"
+                    IsToggled="{Binding ShowMedia, Mode=TwoWay}" />
+            </Grid>
+
+            <Button
+                Text="Preview"
+                Command="{Binding PreviewCommand}" />
+
+            <Label
+                Text="{Binding ResultText}"
+                FontSize="13" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
