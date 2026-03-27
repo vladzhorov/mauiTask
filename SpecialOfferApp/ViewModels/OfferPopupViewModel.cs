@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SpecialOfferApp.Constants;
 using SpecialOfferApp.Models;
 
 namespace SpecialOfferApp.ViewModels;
@@ -8,23 +9,27 @@ public partial class OfferPopupViewModel : ObservableObject
 {
     private readonly TaskCompletionSource<OfferResult?> _tcs = new();
 
-    public OfferPopupViewModel(OfferConfiguration config)
+    public OfferPopupViewModel(OfferContentConfiguration content, OfferDisplayConfiguration display)
     {
-        Config = config;
+        Theme = display.Theme;
 
-        HeaderText = string.IsNullOrWhiteSpace(config.HeaderText) ? "Special Offer" : config.HeaderText.Trim();
-        ShowMedia = config.ShowMedia;
+        HeaderText = string.IsNullOrWhiteSpace(content.HeaderText)
+            ? OfferConstants.FallbackHeaderText
+            : content.HeaderText.Trim();
+        ShowMedia = display.ShowMedia;
 
-        var symbol = config.Type == OfferType.PercentageDiscount ? "%" : "$";
-        var amount = config.Type == OfferType.PercentageDiscount ? "25" : "15";
+        var symbol = content.Type == OfferType.PercentageDiscount
+            ? OfferConstants.PercentageSymbol
+            : OfferConstants.CurrencySymbol;
+        var amount = content.Type == OfferType.PercentageDiscount
+            ? OfferConstants.PercentageValue
+            : OfferConstants.FixedAmountValue;
 
         ValueText = $"{amount}{symbol}";
-        DescriptionText = config.Type == OfferType.PercentageDiscount
-            ? "You get a percentage discount today."
-            : "You get a fixed amount discount today.";
+        DescriptionText = content.Type == OfferType.PercentageDiscount
+            ? OfferConstants.PercentageDescription
+            : OfferConstants.FixedDescription;
     }
-
-    public OfferConfiguration Config { get; }
 
     public Task<OfferResult?> ResultTask => _tcs.Task;
 
@@ -32,6 +37,7 @@ public partial class OfferPopupViewModel : ObservableObject
     public bool ShowMedia { get; }
     public string ValueText { get; }
     public string DescriptionText { get; }
+    public OfferTheme Theme { get; }
 
     public event EventHandler? RequestClose;
 
@@ -41,7 +47,7 @@ public partial class OfferPopupViewModel : ObservableObject
         _tcs.TrySetResult(new OfferResult
         {
             Accepted = true,
-            Message = "Offer was claimed by user."
+            Message = OfferConstants.ResultClaimed
         });
         RequestClose?.Invoke(this, EventArgs.Empty);
     }

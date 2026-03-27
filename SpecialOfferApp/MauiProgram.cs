@@ -22,15 +22,12 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		// DI registrations (prod-style)
 		builder.Services.AddSingleton<AppShell>();
 		builder.Services.AddTransient<MainPage>();
 		builder.Services.AddTransient<OfferPopupPage>();
 
-		// ViewModels
 		builder.Services.AddTransient<MainViewModel>();
 
-		// Services
 		builder.Services.AddSingleton<IOfferDialogService, OfferDialogService>();
 
 		return builder.Build();

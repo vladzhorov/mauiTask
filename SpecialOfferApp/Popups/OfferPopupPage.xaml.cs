@@ -1,4 +1,3 @@
-using SpecialOfferApp.Models;
 using SpecialOfferApp.ViewModels;
 
 namespace SpecialOfferApp.Popups;
@@ -28,3 +27,4 @@ public partial class OfferPopupPage : ContentPage
         _viewModel.CancelIfNeeded();
     }
 }
+

@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:conv="clr-namespace:SpecialOfferApp.Converters"
              x:Class="SpecialOfferApp.MainPage">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <conv:EnumEqualsConverter x:Key="EnumEqualsConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout
@@ -26,11 +19,11 @@
                 <RadioButton
                     GroupName="OfferTypeGroup"
                     Content="Percentage Discount"
-                    IsChecked="{Binding OfferType, Converter={StaticResource EnumEqualsConverter}, ConverterParameter=PercentageDiscount, Mode=TwoWay}" />
+                    IsChecked="{Binding IsPercentageOffer, Mode=TwoWay}" />
                 <RadioButton
                     GroupName="OfferTypeGroup"
                     Content="Fixed Amount"
-                    IsChecked="{Binding OfferType, Converter={StaticResource EnumEqualsConverter}, ConverterParameter=FixedAmount, Mode=TwoWay}" />
+                    IsChecked="{Binding IsFixedAmountOffer, Mode=TwoWay}" />
             </HorizontalStackLayout>
 
             <Label

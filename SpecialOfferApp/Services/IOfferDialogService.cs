@@ -4,6 +4,6 @@ namespace SpecialOfferApp.Services;
 
 public interface IOfferDialogService
 {
-    Task<OfferResult?> ShowAsync(OfferConfiguration config);
+    Task<OfferResult?> ShowAsync(OfferContentConfiguration content, OfferDisplayConfiguration display);
 }
 

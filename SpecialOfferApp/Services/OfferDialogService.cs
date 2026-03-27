@@ -13,14 +13,13 @@ public sealed class OfferDialogService : IOfferDialogService
         _services = services;
     }
 
-    public async Task<OfferResult?> ShowAsync(OfferConfiguration config)
+    public async Task<OfferResult?> ShowAsync(OfferContentConfiguration content, OfferDisplayConfiguration display)
     {
-        var vm = ActivatorUtilities.CreateInstance<OfferPopupViewModel>(_services, config);
+        var vm = ActivatorUtilities.CreateInstance<OfferPopupViewModel>(_services, content, display);
         var page = ActivatorUtilities.CreateInstance<OfferPopupPage>(_services, vm);
 
         await Shell.Current.Navigation.PushModalAsync(page);
-        var result = await vm.ResultTask;
-        return result;
+        return await vm.ResultTask;
     }
 }
 
